@@ -62,7 +62,6 @@ run_job_tests() {
   kubectl create job test-job --from=cronjob/pi --namespace=test-jobs --dry-run=server
   kube::test::get_object_assert 'job --namespace=test-jobs' "{{range.items}}{{ if eq $id_field \"test-jobs\" }}found{{end}}{{end}}:" ':'
   ### Create a job in a specific namespace
-  kubectl create job test-job --from=cronjob/pi --namespace=test-jobs
   # Post-Condition: assertion object exists
   kube::test::get_object_assert 'job/test-job --namespace=test-jobs' "{{$id_field}}" 'test-job'
   kubectl get job/test-job --namespace=test-jobs

@@ -37,8 +37,7 @@ run_kubectl_apply_tests() {
   # pod has field manager for kubectl client-side apply
   output_message=$(kubectl get --show-managed-fields -f hack/testdata/pod.yaml -o=jsonpath='{.metadata.managedFields[*].manager}' "${kube_flags[@]:?}" 2>&1)
   kube::test::if_has_string "${output_message}" 'kubectl-client-side-apply'
-  # Clean up
-  kubectl delete pods test-pod "${kube_flags[@]:?}"
+
 
   ### set-last-applied
   # Pre-Condition: no POD exists
